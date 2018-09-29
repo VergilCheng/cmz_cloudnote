@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.uestc.note.dao.StarsDao">
+	<!--这里用了别名，为了让表中的字段名称和entity中的对象中的属性名称以及顺序保持一致-->
+	<select id="findStarsByUserId"
+		parameterType="string"
+		resultType="cn.uestc.note.entity.Stars">
+		select 
+			cn_star_id as id,
+			cn_user_id AS userId,
+			cn_stars AS star
+		from
+			cn_star
+		where
+			cn_user_id = #{userId}
+	</select>
+	<insert id="insertStarsByUserId"
+		parameterType="cn.uestc.note.entity.Stars">
+		insert into cn_star(
+			cn_star_id,		/*insert语句没有别名！！！！插入不需要别名与entity对象名一致，只有查询需要！*/
+			cn_user_id,
+			cn_stars
+ 		)values(
+ 			#{id},#{userId},#{star}
+ 		)
+	</insert>
+	<update id="updateStarsByUserId"
+		parameterType="cn.uestc.note.entity.Stars">
+		UPDATE cn_star
+		SET
+			<if test="id!=null">
+				cn_star_id=#{id},
+			</if>
+
+			<if test="star!=null">
+				cn_stars=#{star}
+			</if>
+		WHERE cn_user_id=#{userId}
+	</update>
+</mapper>
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="cmz_cloudnote:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/cmz_cloudnote_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="cmz_cloudnote/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="cmz_cloudnote" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.5" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
+          <element id="library" level="project" name="Maven: commons-dbcp:commons-dbcp:1.4" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.5.4" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-annotations-api:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-api:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-catalina:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-coyote:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-el-api:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-jaspic-api:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-jni:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-jsp-api:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-servlet-api:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-util-scan:9.0.5" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-util:9.0.5" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.3.1" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.1" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.3.17.RELEASE" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.13" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi:3.17" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.1" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

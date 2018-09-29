@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.uestc.note.dao.NoteDao">
+
+	<select id="findNotesByNotebookId"
+		parameterType="string"
+		resultType="map">
+		select
+			cn_note_title as title,
+			cn_note_body as body
+		from
+			cn_note
+		where
+			cn_notebook_id = #{notebookId}
+		order by
+			cn_note_last_modify_time desc
+	</select>
+
+	<select id="findNoteByNoteId"
+		parameterType="string"
+		resultType="cn.uestc.note.entity.Note">
+		SELECT
+			cn_note_id AS id,
+			cn_notebook_id AS notebookId,
+			cn_user_id AS userId,
+			cn_note_status_id AS status_id,
+			cn_note_type_id AS type_id,
+			cn_note_title AS title,
+			cn_note_body AS body,
+			cn_note_create_time AS createtime,
+			cn_note_last_modify_time AS last_modify
+		FROM cn_note
+		WHERE cn_note_id = #{noteId}
+	</select>
+
+	<!--如果全插入，不写字段名直接写values,那么spring表达式中的变量名称要和javabean的属性名称相同！！！-->
+	<insert id="addNote"
+		parameterType="cn.uestc.note.entity.Note"
+		>
+	INSERT INTO cn_note
+	VALUES (#{id},
+		   #{notebookId},
+		   #{userId},
+		   #{status_id},
+		   #{type_id},
+		   #{title},
+		   #{body},
+		   #{createtime},
+		   #{last_modify})
+	</insert>
+
+	<!--动态sql中对变量的判断一定要注意，变量的名称与javabean的
+		属性名一定要相同，前提是parameterType是javabean!!-->
+	<update id="updateNote"
+		parameterType="cn.uestc.note.entity.Note">
+
+		UPDATE cn_note
+		SET
+		<trim suffixOverrides=",">		/*将后缀多余的逗号去掉，防止sql语句因为所有输入都不存在而报错*/
+		<if test="notebookId!=null">
+			cn_notebook_id=#{notebookId},
+		</if>
+		<if test="userId!=null">
+			cn_user_id=#{userId},
+		</if>
+		<if test="status_id!=null">
+			cn_status_id=#{statusId},
+		</if>
+		<if test="type_id!=null">
+			cn_note_type_id=#{typeId},
+		</if>
+		<if test="title!=null">
+			cn_note_title=#{title},
+		</if>
+		<if test="body!=null">
+			cn_note_body=#{body},
+		</if>
+		<if test="last_modify!=null">
+			cn_note_last_modify_time = #{last_modify}
+		</if>
+		</trim>
+		WHERE cn_note_id = #{id};
+	</update>
+
+	<delete id="deleteNoteById"
+		parameterType="string">
+		DELETE
+
+		FROM cn_note
+
+		WHERE cn_note_id=#{id}
+	</delete>
+
+
+	<!--1.多字段查询动态Sql，查询多个字段，paramaterType参数是一个对象，来实现多字段查询。
+		2.dao中@Param（"name"）的name要和spring表达式#{name}的name一致。
+		3.<trim>标签用来防止where条件判断中多余的AND关键字
+		4.写了@Param标签，就不许要写ParameterType了-->
+	<select id="findNotes" resultType="map">
+		select
+			cn_note_title as title,
+			cn_note_body as body
+		from
+			cn_note
+		<trim suffixOverrides="AND">
+		where
+
+			<if test="userId!=null">
+				cn_user_id=#{userId} AND
+			</if>
+			<if test="notebookId!=null">
+				cn_notebook_id = #{notebookId} AND
+			</if>
+			<if test="statasId!=null">
+				cn_note_status_id=#{statusId}
+			</if>
+			</trim>
+		order by
+			cn_note_last_modify_time desc
+	</select>
+
+
+	<!--批量删除,原型sql：delete from cn_note where id in(id1,id2,id3,id4)
+		<foreach>标签的优点:
+		非常适用于where条件带in的情况，如果我们不用foreach标签
+		那么我们要进行批量删除需要在业务层进行遍历循环删除。
+		用的话我们业务层就只会执行一次sql，而不是4次，效率就会快很多
+		-->
+	<delete id="deleteNotes">
+		DELETE FROM cn_note
+		WHERE
+			cn_note_id in
+		<foreach collection="ids"
+				 item="id"
+				 open="(" separator="," close=")">
+			#{id}
+		</foreach>
+
+
+	</delete>
+
+
+
+</mapper>
+
+
+
+
+
+
+

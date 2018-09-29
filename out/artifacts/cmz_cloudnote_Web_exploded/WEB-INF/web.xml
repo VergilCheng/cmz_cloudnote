@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+   <!-- <display-name>note</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+   --> <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:conf/spring-*.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <display-name>DemoFliter</display-name>
+        <filter-name>DemoFilter</filter-name>
+        <filter-class>cn.uestc.note.web.DemoFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>DemoFilter</filter-name>
+        <url-pattern>*.html</url-pattern><!--url里面写什么就代表先对*.html的域名进行拦截
+                                              然后将这类域名传入DemoFilter类中进行判断，
+                                              符合要求的则放过。-->
+    </filter-mapping>
+
+    
+    <!--对文件的上载和下载进行配置实验的Servlet-->
+    <servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>cn.uestc.note.web.ImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/demoImage</url-pattern>
+    </servlet-mapping>
+    
+    
+</web-app>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.uestc.note.dao.PostDao">
+	<!--如果要进行关联查询这样的跨表查询映射，那么返回结果需要用resultMap-->
+	<resultMap type="cn.uestc.note.entity.Post" id="postMap">
+		<!--逐一映射每个属性-->
+		<!--主键使用id映射,column为数据库表的字段名称，property故名思意为表对应的javabean的成员变量id
+			让数据库表的字段名和Javabean中的属性名相同，也就是起别名！！-->
+		<id column="id" property="id"/>
+		<!--非主键，使用result映射-->
+		<result column="title" property="title"/>
+		<!--映射 person属性使用association（关联）映射——映射单一属性用association标签
+			其实就是对一个javabean中的另一个javabean属性
+			进行映射，而这另一个javabean属性也是另一张表中
+			的一条记录。这也就是跨表关联查询的映射规则-->
+		<association property="person" javaType="cn.uestc.note.entity.Person">
+			<!--映射person中所包含的属性-->
+			<id column="person_id" property="id"/>
+			<result column="name" property="name"/>
+		</association>
+		<!--属性是一个集合，使用collection进行映射,结果用一个sql语句返回-->
+		<collection property="comments"
+			select="findCommentsByPostId"
+			column="id"><!--这个id是传给下面sql语句中的ParameterType-->
+
+		</collection>
+	</resultMap>
+
+	<select id="findCommentsByPostId"
+		parameterType="int"
+		resultType="cn.uestc.note.entity.Comment">
+
+		SELECT
+			id,
+			title
+		FROM
+			p_comment
+		WHERE
+			post_id = #{id}
+
+
+
+
+	</select>
+
+	<select id="findPostById"
+		parameterType="int"
+		resultMap="postMap">
+		SELECT
+			p_post.id,
+			title,
+			person_id,
+			p.name
+		FROM
+			p_post
+		LEFT OUTER JOIN p_person p on p.id = person_id
+		WHERE
+			p_post.id=#{id}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
